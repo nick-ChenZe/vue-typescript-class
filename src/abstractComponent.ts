@@ -3,10 +3,10 @@ import Vue, { VNode, Component, CreateElement } from 'vue'
 declare type ErrorCallbackHandler = (err: Error, vm: Component, info: string) => void
 
 export default abstract class VueAbstractComponent {
-  protected preserveKeysOfLifeCycle: Array<string>
+  protected preserveKeysOfLifeHook: Array<string>
   protected errorCaptured: ErrorCallbackHandler
   constructor(protected el?: HTMLElement | string) {
-    this.preserveKeysOfLifeCycle = [
+    this.preserveKeysOfLifeHook = [
       'beforeCreate',
       'created',
       'beforeMount',

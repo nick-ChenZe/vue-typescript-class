@@ -1,7 +1,10 @@
 import Vue, { VNode, Component, CreateElement } from 'vue'
+import VueRouter from 'vue-router'
+import VueStore from './store'
 import VueAbstractComponent from './abstractComponent'
+import VueComponent from './component'
 
-interface IVueAppConfig {
+export interface IVueAppConfig {
   /**
    * Suppress all Vue logs and warnings
    */
@@ -58,15 +61,20 @@ interface IVueAppConfig {
   productionTip?: boolean
 }
 
+export interface IVueExtensions<IState> {
+  router?: VueRouter
+  store?: VueStore<IState>
+}
+
 enum types {
   function = 'function',
   string = 'string',
   number = 'number'
 }
 
-export class VueAppliction extends VueAbstractComponent {
+export default class VueAppliction<T> extends VueAbstractComponent {
   private m_config: IVueAppConfig
-  constructor(el: HTMLElement | string, private component: VueComponent, config: IVueAppConfig = {}) {
+  constructor(el: HTMLElement | string, private component: VueComponent, config: IVueAppConfig & IVueExtensions<T> = {}) {
     super(el)
     this.m_config = config
     Object.keys(config).forEach(this.assignGlobalConfig)
@@ -76,11 +84,13 @@ export class VueAppliction extends VueAbstractComponent {
     Vue.config[key] = this.m_config[key]
   }
 
+  append<T>(extension: VueStore<T> | VueRouter) : void{}
+
   render(): Vue {
     const options = {
       el: this.el
     }
-    this.preserveKeysOfLifeCycle.forEach(cycleKey => {
+    this.preserveKeysOfLifeHook.forEach(cycleKey => {
       const isFunction = typeof this[cycleKey] === types.function
       if (isFunction) options[cycleKey] = this[cycleKey]
     })
