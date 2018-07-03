@@ -1,0 +1,27 @@
+{
+  "name": "vue-typescript-class",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nick-ChenZe/vue-typescript-class.git"
+  },
+  "author": "nick-ChenZe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nick-ChenZe/vue-typescript-class/issues"
+  },
+  "homepage": "https://github.com/nick-ChenZe/vue-typescript-class#readme",
+  "dependencies": {
+    "typescript": "^2.9.2",
+    "vue": "^2.5.16"
+  }
+}
