@@ -1,5 +1,7 @@
-export default {
-  ADD_TODO: 'ADD_TODO',
-  REMOVE_TODO: 'REMOVE_TODO',
-  CLEAR_ALL: 'CLEAR_ALL'
+enum Constants {
+  ADD,
+  REMOVE,
+  CLEAR
 }
+
+export default Constants

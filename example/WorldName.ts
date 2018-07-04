@@ -5,12 +5,16 @@ interface IWordNameProps {
   name: string
 }
 
-export default class WorldNameComponent extends VueComponent<{}, IWordNameProps> {
+interface IWorldNameData {
+  count: 0
+}
+
+export default class WorldNameComponent extends VueComponent<IWorldNameData, IWordNameProps> {
   constructor() {
     super()
   }
 
   render(h): VNode {
-    return
+    return <div />
   }
 }
