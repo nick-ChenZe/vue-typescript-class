@@ -1,26 +1,33 @@
-import Vuex, { CommitOptions, DispatchOptions, Commit } from 'vuex'
+import Vuex, { CommitOptions, DispatchOptions, ActionContext } from 'vuex'
 
-enum Action {
-  ADD,
-  DELETE
-}
-
-interface PAYLOAD {
-  ADD: { name: string }
-  DELETE: { name: string }
-}
-
-type foo<T extends number, P> = { [S in T]: (arg1: { commit: Commit }, arg2: P[S]) => void }
-
-var a: foo<Action, PAYLOAD> = {
-  [Action.ADD]: function({ commit }, payload): void {},
-  [Action.DELETE]: function() {}
-}
-
-var b = {
-  [Action.ADD]: function({ commit }, payload): void {},
-  [Action.DELETE]: function() {}
-}
+/**
+ * eg:
+ *
+ * enum ActionEnum {
+ *   ADD = 'ADD',
+ *   DELETE = 'DELETE'
+ * }
+ *
+ * interface IPayload {
+ *   [ActionEnum.ADD]: { id: number; name: string }
+ *   [ActionEnum.DELETE]: { id: number }
+ * }
+ *
+ * const state = {
+ *   todos: []
+ * }
+ *
+ * declare type Actions<T, M extends Extract<keyof T, string>> = { [Key in M]: (context: ActionContext<typeof state, {}>, payload: T[Key]) => void }
+ *
+ * const actions: Actions<IPayload, keyof IPayload> = {
+ *   [ActionEnum.ADD]: function({ commit }, payload): void {
+ *     commit(ActionEnum.ADD, payload.id)
+ *   },
+ *   [ActionEnum.DELETE]: function({ commit }, payload): void {
+ *     commit(ActionEnum.DELETE, payload.id)
+ *   }
+ * }
+ */
 
 export default class VueStore<IState, ICommitActionName = {}, IDispatchActionName = {}> {
   private state: IState
